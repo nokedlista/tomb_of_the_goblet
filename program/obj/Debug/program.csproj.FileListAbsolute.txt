@@ -1,0 +1,10 @@
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\bin\Debug\program.exe.config
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\bin\Debug\program.exe
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\bin\Debug\program.pdb
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.csproj.AssemblyReference.cache
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.Form1.resources
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.Properties.Resources.resources
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.csproj.GenerateResource.cache
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.csproj.CoreCompileInputs.cache
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.exe
+D:\Mappák\házi feladat\2024-25\prog\tomb_of_the_goblet\Program\obj\Debug\program.pdb
