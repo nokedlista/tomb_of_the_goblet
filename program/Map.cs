@@ -12,52 +12,6 @@ namespace program
 {
     internal class Map
     {
-
-
-        private int x { set; get; }
-        private int y { set; get; }
-        private int end { set; get; }
-        private List<string> data { set; get; }
-        private Field[,] fields { set; get; }
-        //private pictureBox[,] fieldsDisplay { set; get; } 
-
-        public Map(int x, int y, List<string> data)
-        {
-            this.x = x;
-            this.y = y;
-            this.data = data;
-            BuildMap();
-        }
-
-        private void BuildMap() 
-        {
-            for (int i = 0; i < y; i++)
-            {
-                for (int j = 0; j < x; j++)
-                {
-                    Field field = new Field(data[i * j + j]);
-                }
-            }
-        }
-
-        public string displayFieldType()
-        {
-            List<string> display = new List<string>();
-            for (int i = 0; i < fields.GetLength(0); i++)
-            {
-                for (int j = 0; j < fields.GetLength(1); j++)
-                {
-                   display.Add(fields[i,j].Type + ", ");
-                }
-                display.Add("\n");
-            }
-
-            return display.ToString();
-        }
-    }
-
-    internal class Field
-    {
         public enum FieldType
         {
             Emty,
@@ -72,72 +26,83 @@ namespace program
             Bulet,
         }
 
-        /* public enum WallGrafic
-        {
-            Top,
-            Bottom,
-            Right,
-            Left,
-            TopRight,
-            TopLeft,
-            BottomRight,
-            BottomLeft,
-            RightLeft,
-            TopBottom,
-            TopRightLeft,
-            TopBottomLeft,
-            TopBottomRight,
-            BottomRightLeft,
-            TopBottomLeftRight,
+        private int x { set; get; }
+        private int y { set; get; }
+        private PictureBox[,] fieldsDisplay { set; get; }
+        private FieldType[,] fields { set; get; }
+
+        public int X
+        { 
+            get {  return x; }
         }
 
-        public enum SpikeGrafic
+        public int Y
         {
-            Wall1,
-            Wall2,
-            Wall3,
-            Wall4,
-            Wall9Left,
-            Wall5Top,
+            get { return y; }
         }
 
-        public enum TimedSpikeGrafic
+        public Map(int x, int y, List<string> data)
         {
-            Wall7,
-            Wall15,
-            Wall13Bottom,
-            Wall8Bottom,
-        } */
+            this.x = x;
+            this.y = y;
+            BuildMap(data);
+        }
 
-        private FieldType type;
-
-        public FieldType Type
+        private void BuildMap(List<string> data)
         {
-            get { return type; }
-            set  //only doted fields are able to change to emty
+            for (int i = 0; i < y; i++)
             {
-                if (type == FieldType.Doted)
+                for (int j = 0; j < x; j++)
                 {
-                    type = FieldType.Emty;
-                }
-                else
-                {
-                    throw new Exception("A mezõ típusa nem módosítható");
+                    char typeData = data[i * j + j][0];
+                    PictureBox disp = new PictureBox();
+                    disp.Width = 30;
+                    disp.Height = 30;
+                    switch (typeData)
+                    {
+                        case '0':
+                            fields[i, j] = FieldType.Emty;
+                            disp.BackColor = Color.Black;
+                            break;
+                        case 'T':
+                            fields[i, j] = FieldType.TimedSpike;
+                            break;
+                        case 'S':
+                            fields[i, j] = FieldType.Spike;
+                            break;
+                        case 'd':
+                            fields[i, j] = FieldType.Doted;
+                            break;
+                        case 'G':
+                            fields[i, j] = FieldType.Gate;
+                            break;
+                        case 'P':
+                            fields[i, j] = FieldType.Spike;
+                            break;
+                        default:
+                            fields[i, j] = FieldType.Wall;
+                            break;
+                    }
+                    fieldsDisplay[i, j] = disp;
                 }
             }
         }
-        public Field(string typeData)
+
+        public PictureBox DisplayField(int x, int y)
         {
-            switch (typeData[0])
+            for (int i = 0; i < this.y; i++)
             {
-                case '0': type = FieldType.Emty; break;
-                case 'T': type = FieldType.TimedSpike; break;
-                case 'S': type = FieldType.Spike; break;
-                case 'd': type = FieldType.Doted; break;
-                case 'G': type = FieldType.Gate; break;
-                case 'P': type = FieldType.Spike; break;
-                default: type = FieldType.Wall; break;
+                for (int j = 0; j < this.x; j++)
+                {
+
+                    if (y == i && x == j)
+                    {
+                        return fieldsDisplay[i, j];
+                    }
+                }
             }
+            return null;
         }
     }
 }
+

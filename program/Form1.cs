@@ -17,31 +17,44 @@ namespace program
         public Form1()
         {
             InitializeComponent();
+            LoadMaps();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void LoadMaps()
         {
             List<Map> maps = new List<Map>();
             StreamReader sr = new StreamReader("mapData.txt");
             List<string> data = new List<string>();
             while (!sr.EndOfStream)
             {
-                string line;
+                string[] line;
                 data.Clear();
+                int x = 0;
+                int y = 0;
                 do
                 {
-                    line = sr.ReadLine();
-                    data.Add(line);
+                    line = sr.ReadLine().Split(';');
+                    x = (line.Length > 1) ? line.Length : x;
+                    data.AddRange(line);
+                    y++;
 
-                } while (line != " ");
-                int x = line.Length;
-                int y = data.Count / x;
-                Map map = new Map(x, y, data);
+                } while (line.Length > 1);
+                Map map = new Map(x, y - 1, data);
                 maps.Add(map);
             }
             sr.Close();
 
-            label1.Text += maps[0].displayFieldType();
+            for (int i = 0; i < maps[0].Y; i++)
+            {
+                for (int j = 0; j < maps[0].X; j++)
+                {
+                     maps[0].DisplayField[j, i]
+                }
+            }
         }
     }
 }
