@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace program
 {
@@ -24,12 +25,15 @@ namespace program
             TimedSpike,
             Shooting,
             Bulet,
+            TSpike,
         }
 
         private int x { set; get; }
         private int y { set; get; }
         private Color[,] fieldColors { set; get; } //később lecserélhető a bg img-kre???
         private FieldType[,] fields { set; get; }
+        private int[] playerField { set; get; }
+        private int numOfPoints { set; get; }
 
         public int X
         { 
@@ -54,6 +58,27 @@ namespace program
         public void setFieldColor(int _x, int _y, Color color)
         {
             fieldColors[_y,_x] = color;
+        }
+
+        public int[] PlayerField
+        {
+            set
+            {
+                if (value.Length != 2)
+                {
+                    new Exception("The player field format is invalid (correct format: [x, y])");
+                }
+                else if (value[0] > x || value[0] < 0 || value[1] > y || value[1] < 0)
+                {
+                    new Exception("Invalid player position (out of range)");
+                }
+                else if (fields[value[1],value[0]] == FieldType.Doted || fields[value[1], value[0]] == FieldType.Emty)
+                {
+                    playerField = value;
+                    MapAction(value);
+                }
+            }
+            get { return playerField; }
         }
 
         public Map(int _x, int _y, List<string> data)
@@ -90,10 +115,13 @@ namespace program
                         case 'd':
                             fields[i, j] = FieldType.Doted;
                             fieldColors[i, j] = Color.Yellow;
+                            numOfPoints++;
                             break;
                         case 'G':
                             fields[i, j] = FieldType.Gate;
                             fieldColors[i, j] = Color.Gray;
+                            int[] player = { j, i };
+                            playerField = player;
                             break;
                         case 'P':
                             fields[i, j] = FieldType.Spike;
@@ -121,6 +149,32 @@ namespace program
                             break;
                     }
                 }
+            }
+        }
+
+        private void MapAction(int[] playerField)
+        {
+            int playerX = playerField[0];
+            int playerY = playerField[1];
+            bool activate = fields[playerY + 1, playerX] == FieldType.TimedSpike ||
+                            fields[playerY, playerX + 1] == FieldType.TimedSpike ||
+                            fields[playerY - 1, playerX] == FieldType.TimedSpike ||
+                            fields[playerY, playerX - 1] == FieldType.TimedSpike;
+            if (fields[playerY, playerX] == FieldType.Doted) 
+            {
+                numOfPoints--;
+                fields[playerY, playerX] = FieldType.Emty;
+                if (numOfPoints < 0 || fields[playerY, playerX] == FieldType.Gate)
+                {
+                    //Törlés, új map ???
+                }
+            }
+            if (activate) //ide valószínűleg szálkezelés kell majd. kihagyni az időzített tüskéket?
+            {
+                Thread.Sleep(500);
+                fields[playerY, playerX] = FieldType.TSpike;
+                Thread.Sleep(1000);
+                fields[playerY, playerX] = FieldType.Emty;
             }
         }
     }

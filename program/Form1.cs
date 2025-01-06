@@ -15,6 +15,7 @@ namespace program
     public partial class Form1 : Form
     {
         static List<Map> maps = new List<Map>();
+        static bool alive = true;
 
         public Form1()
         {
@@ -73,6 +74,11 @@ namespace program
         }
 
         private void MapPlace_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
