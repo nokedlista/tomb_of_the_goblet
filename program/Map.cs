@@ -28,7 +28,7 @@ namespace program
 
         private int x { set; get; }
         private int y { set; get; }
-        private PictureBox[,] fieldsDisplay { set; get; }
+        private Color[,] fieldColors { set; get; } //később lecserélhető a bg img-kre???
         private FieldType[,] fields { set; get; }
 
         public int X
@@ -41,10 +41,27 @@ namespace program
             get { return y; }
         }
 
-        public Map(int x, int y, List<string> data)
+        public FieldType getFieldType(int _x, int _y)
         {
-            this.x = x;
-            this.y = y;
+            return fields[_y, _x];
+        }
+
+        public Color getFieldColor(int _x, int _y)
+        {
+            return fieldColors[_y, _x];
+        }
+
+        public void setFieldColor(int _x, int _y, Color color)
+        {
+            fieldColors[_y,_x] = color;
+        }
+
+        public Map(int _x, int _y, List<string> data)
+        {
+            x = _x;
+            y = _y;
+            fieldColors = new Color[y, x];
+            fields = new FieldType[y, x];
             BuildMap(data);
         }
 
@@ -54,54 +71,57 @@ namespace program
             {
                 for (int j = 0; j < x; j++)
                 {
-                    char typeData = data[i * j + j][0];
-                    PictureBox disp = new PictureBox();
-                    disp.Width = 30;
-                    disp.Height = 30;
+                    char typeData = data[i * x + j][0];
+                    int a = i * x + j;
                     switch (typeData)
                     {
                         case '0':
                             fields[i, j] = FieldType.Emty;
-                            disp.BackColor = Color.Black;
+                            fieldColors[i, j] = Color.Black;
                             break;
                         case 'T':
                             fields[i, j] = FieldType.TimedSpike;
+                            fieldColors[i, j] = Color.Blue;
                             break;
                         case 'S':
                             fields[i, j] = FieldType.Spike;
+                            fieldColors[i, j] = Color.LightBlue;
                             break;
                         case 'd':
                             fields[i, j] = FieldType.Doted;
+                            fieldColors[i, j] = Color.Yellow;
                             break;
                         case 'G':
                             fields[i, j] = FieldType.Gate;
+                            fieldColors[i, j] = Color.Gray;
                             break;
                         case 'P':
                             fields[i, j] = FieldType.Spike;
+                            fieldColors[i, j] = Color.Green;
                             break;
                         default:
-                            fields[i, j] = FieldType.Wall;
+                            try
+                            {
+                                char typeDataTwo = data[i * x + j][1];
+                                if (typeDataTwo == 'T')
+                                {
+                                    fields[i, j] = FieldType.TimedSpike;
+                                    fieldColors[i, j] = Color.Blue;
+                                }
+                                else if (typeDataTwo == 'S')
+                                {
+                                    fields[i, j] = FieldType.Spike;
+                                    fieldColors[i, j] = Color.LightBlue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                fields[i, j] = FieldType.Wall;
+                            }
                             break;
                     }
-                    fieldsDisplay[i, j] = disp;
                 }
             }
-        }
-
-        public PictureBox DisplayField(int x, int y)
-        {
-            for (int i = 0; i < this.y; i++)
-            {
-                for (int j = 0; j < this.x; j++)
-                {
-
-                    if (y == i && x == j)
-                    {
-                        return fieldsDisplay[i, j];
-                    }
-                }
-            }
-            return null;
         }
     }
 }

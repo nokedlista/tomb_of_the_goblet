@@ -46,6 +46,7 @@
             this.MapPlace.Name = "MapPlace";
             this.MapPlace.Size = new System.Drawing.Size(900, 900);
             this.MapPlace.TabIndex = 1;
+            this.MapPlace.Paint += new System.Windows.Forms.PaintEventHandler(this.MapPlace_Paint);
             // 
             // Form1
             // 
