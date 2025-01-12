@@ -30,7 +30,8 @@ namespace program
 
         private int x { set; get; }
         private int y { set; get; }
-        private Color[,] fieldColors { set; get; } //később lecserélhető a bg img-kre???
+        private string[,] bgImgPath { set; get; }
+        //private Color[,] fieldColors { set; get; } //később lecserélhető a bg img-kre???
         private FieldType[,] fields { set; get; }
         private int[] playerField { set; get; }
         private int numOfPoints { set; get; }
@@ -46,12 +47,17 @@ namespace program
             get { return y; }
         }
 
+        public string BgImgPath(int _x, int _y)
+        {
+            return bgImgPath[_y, _x];
+        }
+
         public FieldType getFieldType(int _x, int _y)
         {
             return fields[_y, _x];
         }
 
-        public Color getFieldColor(int _x, int _y)
+        /*public Color getFieldColor(int _x, int _y)
         {
             return fieldColors[_y, _x];
         }
@@ -59,7 +65,7 @@ namespace program
         public void setFieldColor(int _x, int _y, Color color)
         {
             fieldColors[_y,_x] = color;
-        }
+        }*/
 
         public int[] PlayerField
         {
@@ -86,8 +92,9 @@ namespace program
         {
             x = _x;
             y = _y;
-            fieldColors = new Color[y, x];
+            //fieldColors = new Color[y, x];
             fields = new FieldType[y, x];
+            bgImgPath = new string[y, x];
             BuildMap(data);
         }
 
@@ -98,35 +105,42 @@ namespace program
                 for (int j = 0; j < x; j++)
                 {
                     char typeData = data[i * x + j][0];
+                    string type = data[i * x + j];
                     int a = i * x + j;
                     switch (typeData)
                     {
                         case '0':
                             fields[i, j] = FieldType.Emty;
-                            fieldColors[i, j] = Color.Black;
+                            //fieldColors[i, j] = Color.Black;
+                            bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'T':
                             fields[i, j] = FieldType.TimedSpike;
-                            fieldColors[i, j] = Color.Blue;
+                            //fieldColors[i, j] = Color.Blue;
+                            bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'S':
                             fields[i, j] = FieldType.Spike;
-                            fieldColors[i, j] = Color.LightBlue;
+                            //fieldColors[i, j] = Color.LightBlue;
+                            bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'd':
                             fields[i, j] = FieldType.Doted;
-                            fieldColors[i, j] = Color.Yellow;
+                            //fieldColors[i, j] = Color.Yellow;
+                            bgImgPath[i, j] = "./pics/dot.png";
                             numOfPoints++;
                             break;
                         case 'G':
                             fields[i, j] = FieldType.Gate;
-                            fieldColors[i, j] = Color.Gray;
+                            //fieldColors[i, j] = Color.Gray;
                             int[] player = { j, i };
+                            bgImgPath[i, j] = "./pics/gate.png";
                             playerField = player;
                             break;
                         case 'P':
                             fields[i, j] = FieldType.Portal;
-                            fieldColors[i, j] = Color.Green;
+                            //fieldColors[i, j] = Color.Green;
+                            bgImgPath[i, j] = "./pics/portal.png";
                             break;
                         default:
                             try
@@ -135,17 +149,20 @@ namespace program
                                 if (typeDataTwo == 'T')
                                 {
                                     fields[i, j] = FieldType.TimedSpike;
-                                    fieldColors[i, j] = Color.Blue;
+                                    //fieldColors[i, j] = Color.Blue;
+                                    bgImgPath[i, j] = "./pics/" + type + ".png";
                                 }
                                 else if (typeDataTwo == 'S')
                                 {
                                     fields[i, j] = FieldType.Spike;
-                                    fieldColors[i, j] = Color.LightBlue;
+                                    //fieldColors[i, j] = Color.LightBlue;
+                                    bgImgPath[i, j] = "./pics/" + type + ".png";
                                 }
                             }
                             catch (Exception)
                             {
                                 fields[i, j] = FieldType.Wall;
+                                bgImgPath[i, j] = "./pics/" + type + ".png";
                             }
                             break;
                     }

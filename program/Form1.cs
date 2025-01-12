@@ -66,7 +66,9 @@ namespace program
                         Top = i * 30,
                         Width = 30,
                         Height = 30,
-                        BackColor = maps[mapNumber - 1].getFieldColor(j, i),
+                        BackgroundImage = Image.FromFile(maps[mapNumber - 1].BgImgPath(j, i)),
+                        //BackColor = maps[mapNumber - 1].getFieldColor(j, i),
+                        BackColor = Color.Black,
                         Parent = MapPlace,
                     };
                 }
