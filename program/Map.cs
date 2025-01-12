@@ -20,7 +20,7 @@ namespace program
             Doted,
             Gate,
             Portal,
-            Caracter,
+            Character,
             Spike,
             TimedSpike,
             Shooting,
@@ -34,6 +34,7 @@ namespace program
         private FieldType[,] fields { set; get; }
         private int[] playerField { set; get; }
         private int numOfPoints { set; get; }
+        Player player = new Player();
 
         public int X
         { 
@@ -90,7 +91,7 @@ namespace program
             BuildMap(data);
         }
 
-        private void BuildMap(List<string> data)
+        public void BuildMap(List<string> data)
         {
             for (int i = 0; i < y; i++)
             {
@@ -124,7 +125,7 @@ namespace program
                             playerField = player;
                             break;
                         case 'P':
-                            fields[i, j] = FieldType.Spike;
+                            fields[i, j] = FieldType.Portal;
                             fieldColors[i, j] = Color.Green;
                             break;
                         default:
@@ -160,6 +161,10 @@ namespace program
                             fields[playerY, playerX + 1] == FieldType.TimedSpike ||
                             fields[playerY - 1, playerX] == FieldType.TimedSpike ||
                             fields[playerY, playerX - 1] == FieldType.TimedSpike;
+            if (fields[playerY, playerX] == FieldType.Spike)
+            {
+                player.minusLife();
+            }
             if (fields[playerY, playerX] == FieldType.Doted) 
             {
                 numOfPoints--;

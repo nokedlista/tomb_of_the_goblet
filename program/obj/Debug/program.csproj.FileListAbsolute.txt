@@ -18,3 +18,13 @@ C:\Users\admin\Desktop\mappák\2024-25\Wiezl Csaba\tomb_of_the_goblet\program\ob
 C:\Users\admin\Desktop\mappák\2024-25\Wiezl Csaba\tomb_of_the_goblet\program\obj\Debug\program.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\mappák\2024-25\Wiezl Csaba\tomb_of_the_goblet\program\obj\Debug\program.exe
 C:\Users\admin\Desktop\mappák\2024-25\Wiezl Csaba\tomb_of_the_goblet\program\obj\Debug\program.pdb
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\bin\Debug\program.exe.config
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\bin\Debug\program.exe
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\bin\Debug\program.pdb
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.csproj.AssemblyReference.cache
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.Form1.resources
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.Properties.Resources.resources
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.csproj.GenerateResource.cache
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.csproj.CoreCompileInputs.cache
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.exe
+C:\Users\Felhasznalo\Desktop\Programozás\tomb_of_the_goblet\program\obj\Debug\program.pdb
