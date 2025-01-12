@@ -41,7 +41,6 @@ namespace program
                     x = (line.Length > 1) ? line.Length : x;
                     data.AddRange(line);
                     y++;
-
                 } while (line.Length > 1);
                 Map map = new Map(x, y - 1, data);
                 maps.Add(map);
@@ -52,7 +51,7 @@ namespace program
             {
                 for (int j = 0; j < maps[0].X; j++)
                 {
-                     maps[0].DisplayField[j, i]
+                    maps[0].DisplayField(j, i);
                 }
             }
         }
