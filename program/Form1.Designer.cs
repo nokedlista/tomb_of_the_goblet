@@ -44,18 +44,20 @@
             // 
             this.MapPlace.Location = new System.Drawing.Point(0, 0);
             this.MapPlace.Name = "MapPlace";
-            this.MapPlace.Size = new System.Drawing.Size(900, 900);
+            this.MapPlace.Size = new System.Drawing.Size(900, 640);
             this.MapPlace.TabIndex = 1;
+            this.MapPlace.Paint += new System.Windows.Forms.PaintEventHandler(this.MapPlace_Paint);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1484, 861);
+            this.ClientSize = new System.Drawing.Size(1284, 601);
             this.Controls.Add(this.MapPlace);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
