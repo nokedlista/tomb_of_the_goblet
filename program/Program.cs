@@ -17,6 +17,8 @@ namespace program
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            Player player = new Player();
+            player.startGame();
         }
     }
 }
