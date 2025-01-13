@@ -15,20 +15,21 @@ namespace program
     public partial class Form1 : Form
     {
         static List<Map> maps = new List<Map>();
+        static PictureBox[,] fields;
         static bool alive = true;
 
         public Form1()
         {
             InitializeComponent();
             LoadMaps();
-            DisplayMap(2);
+            DisplayMap(1);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
         }
 
-        private void LoadMaps()
+        static void LoadMaps()
         {
             StreamReader sr = new StreamReader("mapData.txt");
             List<string> data = new List<string>();
@@ -56,6 +57,7 @@ namespace program
 
         private void DisplayMap(int mapNumber)
         {
+            fields = new PictureBox[maps[mapNumber - 1].Y, maps[mapNumber - 1].X];
             for (int i = 0; i < maps[mapNumber - 1].Y; i++)
             {
                 for (int j = 0; j < maps[mapNumber - 1].X; j++)
@@ -66,13 +68,22 @@ namespace program
                         Top = i * 30,
                         Width = 30,
                         Height = 30,
-                        BackgroundImage = Image.FromFile(maps[mapNumber - 1].BgImgPath(j, i)),
-                        //BackColor = maps[mapNumber - 1].getFieldColor(j, i),
                         BackColor = Color.Black,
                         Parent = MapPlace,
                     };
+                    string imgPath = maps[mapNumber - 1].BgImgPath(j, i);
+                    if (imgPath != null)
+                    {
+                        field.BackgroundImage = Image.FromFile(imgPath);
+                    }
+                    fields[i,j] = field;
                 }
             }
+        }
+
+        public void changePortal(int _x, int _y)
+        {
+            fields[_y, _x].BackgroundImage = Image.FromFile("./pics/portal");
         }
 
         private void MapPlace_Paint(object sender, PaintEventArgs e)

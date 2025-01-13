@@ -30,8 +30,8 @@ namespace program
 
         private int x { set; get; }
         private int y { set; get; }
+        private int[] portalLocation;
         private string[,] bgImgPath { set; get; }
-        //private Color[,] fieldColors { set; get; } //később lecserélhető a bg img-kre???
         private FieldType[,] fields { set; get; }
         private int[] playerField { set; get; }
         private int numOfPoints { set; get; }
@@ -56,16 +56,6 @@ namespace program
         {
             return fields[_y, _x];
         }
-
-        /*public Color getFieldColor(int _x, int _y)
-        {
-            return fieldColors[_y, _x];
-        }
-
-        public void setFieldColor(int _x, int _y, Color color)
-        {
-            fieldColors[_y,_x] = color;
-        }*/
 
         public int[] PlayerField
         {
@@ -92,7 +82,6 @@ namespace program
         {
             x = _x;
             y = _y;
-            //fieldColors = new Color[y, x];
             fields = new FieldType[y, x];
             bgImgPath = new string[y, x];
             BuildMap(data);
@@ -111,36 +100,31 @@ namespace program
                     {
                         case '0':
                             fields[i, j] = FieldType.Emty;
-                            //fieldColors[i, j] = Color.Black;
-                            bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'T':
                             fields[i, j] = FieldType.TimedSpike;
-                            //fieldColors[i, j] = Color.Blue;
                             bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'S':
                             fields[i, j] = FieldType.Spike;
-                            //fieldColors[i, j] = Color.LightBlue;
                             bgImgPath[i, j] = "./pics/" + type + ".png";
                             break;
                         case 'd':
                             fields[i, j] = FieldType.Doted;
-                            //fieldColors[i, j] = Color.Yellow;
                             bgImgPath[i, j] = "./pics/dot.png";
                             numOfPoints++;
                             break;
                         case 'G':
                             fields[i, j] = FieldType.Gate;
-                            //fieldColors[i, j] = Color.Gray;
                             int[] player = { j, i };
                             bgImgPath[i, j] = "./pics/gate.png";
                             playerField = player;
                             break;
                         case 'P':
                             fields[i, j] = FieldType.Portal;
-                            //fieldColors[i, j] = Color.Green;
-                            bgImgPath[i, j] = "./pics/portal.png";
+                            bgImgPath[i, j] = "./pics/closed_portal.png";
+                            int[] location = {i, j};
+                            portalLocation = location;
                             break;
                         default:
                             try
@@ -149,13 +133,16 @@ namespace program
                                 if (typeDataTwo == 'T')
                                 {
                                     fields[i, j] = FieldType.TimedSpike;
-                                    //fieldColors[i, j] = Color.Blue;
                                     bgImgPath[i, j] = "./pics/" + type + ".png";
                                 }
                                 else if (typeDataTwo == 'S')
                                 {
                                     fields[i, j] = FieldType.Spike;
-                                    //fieldColors[i, j] = Color.LightBlue;
+                                    bgImgPath[i, j] = "./pics/" + type + ".png";
+                                }
+                                else
+                                {
+                                    fields[i, j] = FieldType.Wall;
                                     bgImgPath[i, j] = "./pics/" + type + ".png";
                                 }
                             }
@@ -186,7 +173,11 @@ namespace program
             {
                 numOfPoints--;
                 fields[playerY, playerX] = FieldType.Emty;
-                if (numOfPoints < 0 || fields[playerY, playerX] == FieldType.Gate)
+                if (numOfPoints < 1)
+                {
+                    
+                }
+                if (numOfPoints < 1 || fields[playerY, playerX] == FieldType.Gate)
                 {
                     //Törlés, új map ???
                 }

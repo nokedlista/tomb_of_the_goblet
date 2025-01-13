@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace program
 {
+
     internal static class Program
     {
         /// <summary>
@@ -17,8 +19,11 @@ namespace program
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+
             Player player = new Player();
             player.startGame();
+
         }
     }
 }
